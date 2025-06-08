@@ -1,0 +1,50 @@
+/* Mobile devices (max-width: 640px) */
+@media (max-width: 640px) {
+  .responsive-container {
+    padding: 8px;
+    font-size: 1rem;
+  }
+  .responsive-img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  .responsive-header {
+    font-size: 1.2rem;
+    text-align: center;
+  }
+}
+
+/* Tablet devices (641px to 1024px) */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .responsive-container {
+    padding: 16px;
+    font-size: 1.1rem;
+  }
+  .responsive-img {
+    width: 80%;
+    height: auto;
+    border-radius: 12px;
+  }
+  .responsive-header {
+    font-size: 1.5rem;
+    text-align: left;
+  }
+}
+
+/* Desktop (above 1024px) */
+@media (min-width: 1025px) {
+  .responsive-container {
+    padding: 24px;
+    font-size: 1.2rem;
+  }
+  .responsive-img {
+    width: 60%;
+    height: auto;
+    border-radius: 16px;
+  }
+  .responsive-header {
+    font-size: 2rem;
+    text-align: left;
+  }
+}
