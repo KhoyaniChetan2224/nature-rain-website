@@ -70,6 +70,17 @@ const Home = () => {
       {/* Header */}
       <HeaderHome />
       <div className=" min-h-screen flex flex-col">
+
+        {/* Up/Down Button */}
+        <button 
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className="fixed bottom-2 right-3 z-50 p-2 hover:shadow-teal-50 rounded-full bg-rose-500 text-white shadow-lg hover:bg-rose-600 transition-all duration-300 hover:scale-110 transform active:scale-95"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+          </svg>
+        </button>
+        
         {/* Main Content */}
         <main className="bg-cover bg-center bg-[url(https://i.pinimg.com/736x/b9/75/05/b975051ce74ad59f2d9bc15fcbfdcb30.jpg)] h-screen flex justify-between flex-col w-full">
           <div className="flex mt-12 flex-col items-center justify-center h-full">
