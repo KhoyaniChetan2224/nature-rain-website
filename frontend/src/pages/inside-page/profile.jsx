@@ -107,12 +107,16 @@ const Profile = () => {
       setLoading(true);
       const formDataToSend = new FormData();
       
+      // Use 'photo' as the field name for the image file
       if (imageFile) {
-        formDataToSend.append('profileImage', imageFile);
+        formDataToSend.append('photo', imageFile);
       }
-      Object.keys(formData).forEach(key => {
-        formDataToSend.append(key, formData[key]);
-      });
+      
+      // Add other form data
+      formDataToSend.append('username', formData.username);
+      formDataToSend.append('email', formData.email);
+      formDataToSend.append('location', formData.location);
+      formDataToSend.append('phone', formData.phoneNumber);
 
       const response = await axios.put(
         `${import.meta.env.VITE_BASE_URL}/users/profile`,
@@ -145,8 +149,8 @@ const Profile = () => {
       <HeaderHome />
 
       <div className="max-w-5xl mx-auto px-4 py-8">
-        <div className="shadow-lg rounded-lg p-6 bg-green-50">
-          <h2 className="text-3xl font-bold mb-6 text-center text-green-800 underline">Your Profile</h2>
+        <div className="shadow-lg rounded-lg p-6 bg-gradient-to-bl from-green-500 via-lime-200 to-rose-400">
+          <h2 className="text-3xl font-bold mb-6 text-center text-gray-800 underline">Your Profile</h2>
 
           {message && (
             <p className="text-center text-sm mb-4 text-red-600">{message}</p>
@@ -156,19 +160,19 @@ const Profile = () => {
             {/* Info Section */}
             <div className="md:w-1/2 space-y-4">
               <p className="text-lg">
-                <span className="font-semibold">Username:</span>{" "}
+                <span className="font-semibold text-indigo-900">Username:</span>{" "}
                 {formData.username || "Not set"}
               </p>
               <p className="text-lg">
-                <span className="font-semibold">Email:</span>{" "}
+                <span className="font-semibold text-indigo-900">Email:</span>{" "}
                 {formData.email || "Not set"}
               </p>
               <p className="text-lg">
-                <span className="font-semibold">Location:</span>{" "}
+                <span className="font-semibold text-indigo-900">Location:</span>{" "}
                 {formData.location || "Not set"}
               </p>
               <p className="text-lg">
-                <span className="font-semibold">phoneNumber:</span>{" "}
+                <span className="font-semibold text-indigo-900">phoneNumber:</span>{" "}
                 {formData.phoneNumber || "Not set"}
               </p>
             </div>
@@ -209,7 +213,7 @@ const Profile = () => {
                     value={formData.username}
                     onChange={handleInputChange}
                     placeholder="Username"
-                    className="w-full p-2 border rounded-md"
+                    className="w-full p-2 border rounded-md border-rose-400 hover:border-fuchsia-600"
                   />
                   <input
                     id="email"
@@ -217,14 +221,14 @@ const Profile = () => {
                     value={formData.email}
                     onChange={handleInputChange}
                     placeholder="Email"
-                    className="w-full p-2 border rounded-md"
+                    className="w-full p-2 border rounded-md border-yellow-400 hover:border-teal-500"
                   />
                   <input
                     id="location"
                     value={formData.location}
                     onChange={handleInputChange}
                     placeholder="Location"
-                    className="w-full p-2 border rounded-md"
+                    className="w-full p-2 border rounded-md border-fuchsia-400 hover:border-rose-500"
                   />
                   <input
                     id="phoneNumber"
@@ -232,7 +236,7 @@ const Profile = () => {
                     value={formData.phoneNumber}
                     onChange={handleInputChange}
                     placeholder="phoneNumber Number"
-                    className="w-full p-2 border rounded-md"
+                    className="w-full p-2 border rounded-md border-teal-400 hover:border-yellow-500"
                   />
                   <button
                     onClick={handleSubmit}
