@@ -9,6 +9,36 @@ const FarmerHome = () => {
     navigate("/farm", { state: item });
   };
 
+  const [FarmerName, setFarmerName] = React.useState("");
+  const [Email, setEmail] = React.useState("");
+  const [PhoneNumber, setPhoneNumber] = React.useState("");
+  const [Type, setType] = React.useState("");
+  const [Media, setMedia] = React.useState(null);
+  const [Location, setLocation] = React.useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const uploadData = {
+      farmerName: FarmerName,
+      email: Email,
+      phoneNumber: PhoneNumber,
+      type: Type,
+      media: Media,
+      location: Location,
+    };
+
+    navigate("/farm", { state: uploadData });
+    // Reset form
+    setFarmerName("");
+    setEmail("");
+    setPhoneNumber("");
+    setType("");
+    setMedia(null);
+    setLocation("");
+
+    alert("Farmer information submitted successfully...!");
+  };
+
   return (
     <div className="bg-green-50 min-h-screen w-full overflow-x-hidden">
       <HeaderHome />
@@ -25,6 +55,135 @@ const FarmerHome = () => {
             friendly practices. Discover innovations, connect with others, and
             grow your farm.
           </p>
+
+          {/* Upload Section */}
+          <section className="py-2 px-4 md:px-20 bg-green-100 mb-8">
+            <h2 className="text-2xl font-bold text-green-800 mb-2 text-center">
+              Farmer Information
+            </h2>
+            <div className="max-w-full mx-auto">
+              <form onSubmit={handleSubmit} className="space-y-4 border border-green-300 p-5 rounded-lg bg-green-50">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-green-700 mb-2">
+                      Farmer Name
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={FarmerName}
+                      onChange={(e) => setFarmerName(e.target.value)}
+                      className="w-full p-2 border border-green-300 rounded"
+                      placeholder="Enter your name"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-green-700 mb-2">
+                      Email Address
+                    </label>
+                    <input
+                      type="email"
+                      required
+                      value={Email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="w-full p-2 border border-green-300 rounded"
+                      placeholder="Enter your email"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-green-700 mb-2">
+                      Phone Number
+                    </label>
+                    <input
+                      type="tel"
+                      required
+                      value={PhoneNumber}
+                      onChange={(e) => setPhoneNumber(e.target.value)}
+                      className="w-full p-2 border border-green-300 rounded"
+                      placeholder="Enter your phone number"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-green-700 mb-2">
+                      Media Type
+                    </label>
+                    <select
+                      value={Type}
+                      onChange={(e) => setType(e.target.value)}
+                      required
+                      className="w-full p-2 border border-green-300 rounded"
+                    >
+                      <option value="">Select type</option>
+                      <option value="image">Image</option>
+                      <option value="video">Video</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-green-700 mb-2">
+                      Upload Media
+                    </label>
+                    <input
+                      type="file"
+                      value={null}
+                      onChange={(e) => {
+                        const file = e.target.files[0];
+                        if (file) {
+                          const reader = new FileReader();
+                          reader.onloadend = () => {
+                            setMedia({
+                              file: file,
+                              preview: reader.result,
+                              type: file.type.startsWith("video/")
+                                ? "video"
+                                : "image",
+                            });
+                          };
+                          reader.readAsDataURL(file);
+                        }
+                      }}
+                      accept={Type === "video" ? "video/*" : "image/*"}
+                      required
+                      className="w-full p-2 border border-green-300 rounded"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-green-700 mb-2">
+                      Location
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={Location}
+                      onChange={(e) => setLocation(e.target.value)}
+                      className="w-full p-2 border border-green-300 rounded"
+                      placeholder="Enter your location"
+                    />
+                  </div>
+                </div>
+                <div className="flex justify-center">
+                  <button
+                    type="submit"
+                    className="bg-green-600 text-white py-2 px-6 rounded hover:bg-green-700 transition duration-200"
+                  >
+                    Upload & Continue
+                  </button>
+                </div>
+                {Media && (
+                  <div className="mt-4 border rounded p-2">
+                    <h3 className="text-green-700 mb-2">Preview:</h3>
+                    {Media.type === 'video' ? (
+                      <video src={Media.preview} className="w-full h-48 object-cover" controls />
+                    ) : (
+                      <img src={Media.preview} alt="Preview" className="w-full h-48 object-cover" />
+                    )}
+                  </div>
+                )}
+              </form>
+            </div>
+          </section>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
@@ -80,7 +239,7 @@ const FarmerHome = () => {
                 type: "video",
                 src: "https://v1.pinimg.com/videos/iht/720p/16/5f/35/165f35fc92253c363e85935d6da36ae8.mp4",
                 title: "Village",
-                desc: "A village is a small settlement typically found in rural areas, surrounded by nature, fields, and forests. It is known for its peaceful environment, close-knit community, and traditional way of life."
+                desc: "A village is a small settlement typically found in rural areas, surrounded by nature, fields, and forests. It is known for its peaceful environment, close-knit community, and traditional way of life.",
               },
               {
                 type: "image",
@@ -111,9 +270,37 @@ const FarmerHome = () => {
                   <video
                     className="w-full h-48 object-cover"
                     autoPlay
-                    loop  
-                    muted={i === 0 || i === 1 || i === 2 || i === 3 || i === 4 || i === 5 || i === 6 || i === 7 || i === 8 || i === 9 || i === 10 || i === 11 || i === 12}
-                    controls={!(i === 1 || i === 2 || i === 3 || i === 4 || i === 5 || i === 6 || i === 8 || i === 9 || i === 10 || i === 11 || i === 12)}
+                    loop
+                    muted={
+                      i === 0 ||
+                      i === 1 ||
+                      i === 2 ||
+                      i === 3 ||
+                      i === 4 ||
+                      i === 5 ||
+                      i === 6 ||
+                      i === 7 ||
+                      i === 8 ||
+                      i === 9 ||
+                      i === 10 ||
+                      i === 11 ||
+                      i === 12
+                    }
+                    controls={
+                      !(
+                        i === 1 ||
+                        i === 2 ||
+                        i === 3 ||
+                        i === 4 ||
+                        i === 5 ||
+                        i === 6 ||
+                        i === 8 ||
+                        i === 9 ||
+                        i === 10 ||
+                        i === 11 ||
+                        i === 12
+                      )
+                    }
                   >
                     <source src={item.src} type="video/mp4" />
                     Your browser does not support the video tag.
