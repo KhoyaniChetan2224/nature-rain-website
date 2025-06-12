@@ -67,6 +67,27 @@ const NatureHome = () => {
     },
   ];
 
+  const [Title, setTitle] = React.useState("");
+  const [Type, setType] = React.useState("");
+  const [Media, setMedia] = React.useState(null);
+  const [DescriptionText, setDescriptionText] = React.useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const mediaData = {
+      type: Type,
+      title: Title,
+      mediaUrl: Media.preview,
+      description: DescriptionText
+    };
+    navigate("/animal", { state: mediaData });
+    setTitle("");
+    setType("");
+    setMedia(null);
+    setDescriptionText("");
+  };
+
+
   return (
     <div className="min-h-screen w-full bg-green-50 overflow-x-hidden">
       <HeaderHome />
@@ -89,17 +110,102 @@ const NatureHome = () => {
         </h1>
         <p className="text-green-700 text-base md:text-lg mb-4 text-justify">
           Welcome to a world of natural wonders. Experience the raw beauty and
-          tranquility of Earth's most stunning landscapes. Discover breathtaking
-          forests, animals, and environments that offer peace and inspiration.
-        </p>
-        <p className="text-green-700 text-base md:text-lg text-justify">
-          The forest is a vibrant ecosystem filled with tigers, leopards,
-          monkeys, birds, deer, and wolves, all working together in nature’s
-          cycle.
+          tranquility of Earth's most stunning landscapes.
         </p>
       </section>
 
-      {/* Alternating Media Cards */}
+      {/* Upload Section */}
+      <section className="py-2 px-4 md:px-20 bg-green-100">
+        <h2 className="text-2xl font-bold text-green-800 mb-2 text-center">Share Your Nature Moments</h2>
+        <div className="max-w-full mx-auto">
+          <form onSubmit={handleSubmit} className="space-y-4 border border-green-300 p-5 rounded-lg bg-green-50">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-green-700 mb-2">Title</label>
+                <input 
+                  type="text"
+                  value={Title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  required
+                  className="w-full p-2 border border-green-300 rounded "
+                  placeholder="Enter title"
+                />
+              </div>
+              <div>
+                <label className="block text-green-700 mb-2">Media Type</label>
+                <select
+                  value={Type}
+                  onChange={(e) => setType(e.target.value)}
+                  required
+                  className="w-full p-2 border border-green-300 rounded"
+                >
+                  <option value="">Select type</option>
+                  <option value="image">Image</option>
+                  <option value="video">Video</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-green-700 mb-2">Upload Media</label>
+              <input
+                type="file"
+                onChange={(e) => {
+                  const file = e.target.files[0];
+                  if (file) {
+                    const reader = new FileReader();
+                    reader.onloadend = () => {
+                      setMedia({
+                        file: file,
+                        preview: reader.result,
+                        type: file.type.startsWith('video/') ? 'video' : 'image'
+                      });
+                    };
+                    reader.readAsDataURL(file);
+                  }
+                }}
+                accept={Type === 'video' ? 'video/*' : 'image/*'}
+                required
+                className="w-full p-2 border border-green-300 rounded"
+              />
+            </div>
+
+            <div>
+              <label className="block text-green-700 mb-2">Description</label>
+              <textarea
+                value={DescriptionText}
+                onChange={(e) => setDescriptionText(e.target.value)}
+                required
+                className="w-full p-2 border border-green-300 rounded"
+                rows="2"
+                placeholder="Enter description"
+              />
+            </div>
+
+            <div className="flex justify-center">
+              <button
+                type="submit"
+                className="bg-green-600 text-white py-2 px-6 rounded hover:bg-green-700 transition duration-200"
+              >
+                Upload & Continue
+              </button>
+            </div>
+
+            {Media && (
+              <div className="mt-4 border rounded p-2">
+                <h3 className="text-green-700 mb-2">Preview:</h3>
+                {Media.type === 'video' ? (
+                  <video src={Media.preview} className="w-full h-48 object-cover" controls />
+                ) : (
+                  <img src={Media.preview} alt="Preview" className="w-full h-48 object-cover" />
+                )}
+              </div>
+            )}
+          </form>
+        </div>
+      </section>
+
+      {/* Media Gallery */}
       <section className="px-4 md:px-16 py-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {mediaItems.map((item, index) => (
