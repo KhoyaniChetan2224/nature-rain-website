@@ -95,7 +95,7 @@ const RainFlowHome = () => {
   };
 
   return (
-    <div className="bg-green-50 min-h-screen">
+    <div className="bg-green-50 min-h-screen overflow-hidden h-full">
       <HeaderHome />
       <section className="py-10 px-4 md:px-12">
         <div className="max-w-6xl mx-auto">
