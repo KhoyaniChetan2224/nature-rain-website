@@ -14,55 +14,67 @@ const NatureHome = () => {
     {
       type: "video",
       title: "Forest Stream",
-      mediaUrl: "https://v1.pinimg.com/videos/iht/expMp4/ea/d4/e3/ead4e31c85e7040d3d52edebd1f491b7_t4.mp4",
-      description: "The forest deer is a graceful and gentle creature often found roaming dense woodlands.",
+      mediaUrl:
+        "https://v1.pinimg.com/videos/iht/expMp4/ea/d4/e3/ead4e31c85e7040d3d52edebd1f491b7_t4.mp4",
+      description:
+        "The forest deer is a graceful and gentle creature often found roaming dense woodlands.",
     },
     {
       type: "image",
       title: "Nature Deer",
-      mediaUrl: "https://i.pinimg.com/736x/c7/1d/b3/c71db31eea0cc1a0f5614c73547b30f9.jpg",
+      mediaUrl:
+        "https://i.pinimg.com/736x/c7/1d/b3/c71db31eea0cc1a0f5614c73547b30f9.jpg",
       description: "Walk among towering trees and vibrant greenery.",
     },
     {
       type: "video",
       title: "Forest Stream Wolf",
-      mediaUrl: "https://v1.pinimg.com/videos/mc/720p/5c/89/65/5c896501c851a83c7edf8d90650f1f45.mp4",
-      description: "Peaceful sounds of running forest water surround the trees.",
+      mediaUrl:
+        "https://v1.pinimg.com/videos/mc/720p/5c/89/65/5c896501c851a83c7edf8d90650f1f45.mp4",
+      description:
+        "Peaceful sounds of running forest water surround the trees.",
     },
     {
       type: "image",
       title: "Forest Powerful Lions",
-      mediaUrl: "https://i.pinimg.com/736x/61/95/ff/6195ffcadbdb8bf6282645692817de64.jpg",
+      mediaUrl:
+        "https://i.pinimg.com/736x/61/95/ff/6195ffcadbdb8bf6282645692817de64.jpg",
       description: "Majestic lions that dominate forest terrains.",
     },
     {
       type: "image",
       title: "Forest Wolf",
-      mediaUrl: "https://i.pinimg.com/736x/dc/dd/2c/dcdd2c3ad4ef57691799874966317d8b.jpg",
+      mediaUrl:
+        "https://i.pinimg.com/736x/dc/dd/2c/dcdd2c3ad4ef57691799874966317d8b.jpg",
       description: "Gray wolves are intelligent predators of the woods.",
     },
     {
       type: "video",
       title: "Forest Strong Leopard",
-      mediaUrl: "https://v1.pinimg.com/videos/iht/expMp4/28/97/32/28973271e062a379d8d108c99ae52b3e_720w.mp4",
+      mediaUrl:
+        "https://v1.pinimg.com/videos/iht/expMp4/28/97/32/28973271e062a379d8d108c99ae52b3e_720w.mp4",
       description: "A narrow stream cuts through lush woodland.",
     },
     {
       type: "image",
       title: "Forest Elephant",
-      mediaUrl: "https://i.pinimg.com/736x/6e/0a/85/6e0a8509f16ae5505e0b5b8ad4e602b8.jpg",
+      mediaUrl:
+        "https://i.pinimg.com/736x/6e/0a/85/6e0a8509f16ae5505e0b5b8ad4e602b8.jpg",
       description: "Smaller, elusive cousins of savanna elephants.",
     },
     {
       type: "video",
       title: "Forest Stream 2",
-      mediaUrl: "https://v1.pinimg.com/videos/mc/720p/53/fe/68/53fe68dca78768b85bb182920dd33515.mp4",
-      description: "Peaceful sounds of running forest water surround the trees.",
+      mediaUrl:
+        "https://v1.pinimg.com/videos/mc/720p/53/fe/68/53fe68dca78768b85bb182920dd33515.mp4",
+      description:
+        "Peaceful sounds of running forest water surround the trees.",
     },
     {
       type: "image",
       title: "Forest Bear",
-      mediaUrl: "https://i.pinimg.com/736x/bf/9f/ba/bf9fba1fa947b3c0a3f5a4cb4e5922f2.jpg",
+      mediaUrl:
+        "https://i.pinimg.com/736x/bf/9f/ba/bf9fba1fa947b3c0a3f5a4cb4e5922f2.jpg",
       description: "Strong and furry giants of the deep forest.",
     },
   ];
@@ -70,7 +82,32 @@ const NatureHome = () => {
   const [Title, setTitle] = React.useState("");
   const [Type, setType] = React.useState("");
   const [Media, setMedia] = React.useState(null);
+  const [animalType, setAnimalType] = React.useState("");
+  const [Location, setLocation] = React.useState("");
   const [DescriptionText, setDescriptionText] = React.useState("");
+  const [Age, setAge] = React.useState("");
+
+  const animalTypes = [
+    "Mammal",
+    "Bird",
+    "Reptile",
+    "Amphibian",
+    "Fish",
+    "Insect",
+    "Other",
+  ];
+  const animalLocations = [
+    "Gir Forest",
+    "Sundarbans",
+    "Kaziranga",
+    "Western Ghats",
+    "Himalayas",
+    "Jim Corbett",
+    "Bandipur",
+    "Manas National Park",
+    "Ranthambore",
+    "Satpura",
+  ];
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -78,15 +115,19 @@ const NatureHome = () => {
       type: Type,
       title: Title,
       mediaUrl: Media.preview,
-      description: DescriptionText
+      description: DescriptionText,
+      location: Location,
+      age: Age,
     };
     navigate("/animal", { state: mediaData });
     setTitle("");
     setType("");
     setMedia(null);
+    setAnimalType("");
+    setLocation("");
     setDescriptionText("");
+    setAge("");
   };
-
 
   return (
     <div className="min-h-screen w-full bg-green-50 overflow-x-hidden">
@@ -116,67 +157,133 @@ const NatureHome = () => {
 
       {/* Upload Section */}
       <section className="py-2 px-4 md:px-20 bg-green-100">
-        <h2 className="text-2xl font-bold text-green-800 mb-2 text-center">Share Your Nature Moments</h2>
+        <h2 className="text-2xl text-rose-700 font-semibold mb-1 text-center">
+          Share Your Nature Moments
+        </h2>
         <div className="max-w-full mx-auto">
-          <form onSubmit={handleSubmit} className="space-y-4 border border-green-300 p-5 rounded-lg bg-green-50">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <form
+            onSubmit={handleSubmit}
+            className="space-y-4 border border-fuchsia-600 p-5 rounded-lg bg-green-50"
+          >
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
-                <label className="block text-green-700 mb-2">Title</label>
-                <input 
+                <label className="block text-green-700 font-semibold mb-1">
+                  Animal Name
+                </label>
+                <input
                   type="text"
                   value={Title}
                   onChange={(e) => setTitle(e.target.value)}
                   required
-                  className="w-full p-2 border border-green-300 rounded "
-                  placeholder="Enter title"
+                  className="w-full px-4 py-2 border border-green-500 rounded-xl focus:outline-none focus:ring-1 focus:ring-green-600"
+                  placeholder="Enter Animal Name"
                 />
               </div>
               <div>
-                <label className="block text-green-700 mb-2">Media Type</label>
+                <label className="block text-pink-700 font-semibold mb-1">
+                  Animal Type image or video
+                </label>
                 <select
                   value={Type}
                   onChange={(e) => setType(e.target.value)}
                   required
-                  className="w-full p-2 border border-green-300 rounded"
+                  className="w-full p-2 px-4 py-2 border border-pink-500 rounded-xl focus:outline-none focus:ring-1 focus:ring-pink-600"
                 >
                   <option value="">Select type</option>
                   <option value="image">Image</option>
                   <option value="video">Video</option>
                 </select>
               </div>
+              <div>
+                <label className="block text-rose-700 font-semibold mb-1">
+                  Type of Animal
+                </label>
+                <select
+                  name="type"
+                  value={animalType}
+                  onChange={(e) => setAnimalType(e.target.value)}
+                  className="w-full px-4 py-2 border border-pink-600 rounded-xl focus:outline-none focus:ring-1 focus:ring-pink-700"
+                  required
+                >
+                  <option value="">Select type</option>
+                  {animalTypes.map((type, idx) => (
+                    <option key={idx} value={type}>
+                      {type}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className="block text-yellow-700 font-semibold mb-1">
+                  Animal Location
+                </label>
+                <select
+                  name="location"
+                  value={Location}
+                  onChange={(e) => setLocation(e.target.value)}
+                  className="w-full px-4 py-2 border border-yellow-300 rounded-xl focus:outline-none focus:ring-1 focus:ring-yellow-400"
+                  required
+                >
+                  <option value="">Select location</option>
+                  {animalLocations.map((loc, idx) => (
+                    <option key={idx} value={loc}>
+                      {loc}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className="block text-blue-700 font-semibold mb-1">
+                  Animal Age
+                </label>
+                <input
+                  type="number"
+                  min="0"
+                  required
+                  value={Age}
+                  onChange={(e) => setAge(e.target.value)}
+                  className="w-full px-4 py-2 border border-rose-700 rounded-xl focus:outline-none focus:ring-1 focus:ring-rose-800"
+                  placeholder="Enter animal age in years"
+                />
+              </div>
+              <div>
+                <label className="block text-orange-700 font-semibold mb-1">
+                  Upload Animal image or video
+                </label>
+                <input
+                  type="file"
+                  onChange={(e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                      const reader = new FileReader();
+                      reader.onloadend = () => {
+                        setMedia({
+                          file: file,
+                          preview: reader.result,
+                          type: file.type.startsWith("video/")
+                            ? "video"
+                            : "image",
+                        });
+                      };
+                      reader.readAsDataURL(file);
+                    }
+                  }}
+                  accept={Type === "video" ? "video/*" : "image/*"}
+                  required
+                  className="w-full px-4 py-2 border border-indigo-600 rounded-xl focus:outline-none focus:ring-1 focus:ring-indigo-700"
+                />
+              </div>
             </div>
 
             <div>
-              <label className="block text-green-700 mb-2">Upload Media</label>
-              <input
-                type="file"
-                onChange={(e) => {
-                  const file = e.target.files[0];
-                  if (file) {
-                    const reader = new FileReader();
-                    reader.onloadend = () => {
-                      setMedia({
-                        file: file,
-                        preview: reader.result,
-                        type: file.type.startsWith('video/') ? 'video' : 'image'
-                      });
-                    };
-                    reader.readAsDataURL(file);
-                  }
-                }}
-                accept={Type === 'video' ? 'video/*' : 'image/*'}
-                required
-                className="w-full p-2 border border-green-300 rounded"
-              />
-            </div>
-
-            <div>
-              <label className="block text-green-700 mb-2">Description</label>
+              <label className="block text-cyan-700 font-semibold mb-1">
+                Animal Description
+              </label>
               <textarea
                 value={DescriptionText}
                 onChange={(e) => setDescriptionText(e.target.value)}
                 required
-                className="w-full p-2 border border-green-300 rounded"
+                className="w-full px-4 py-2 border border-cyan-600 rounded-xl focus:outline-none focus:ring-1 focus:ring-cyan-700"
                 rows="2"
                 placeholder="Enter description"
               />
@@ -193,11 +300,19 @@ const NatureHome = () => {
 
             {Media && (
               <div className="mt-4 border rounded p-2">
-                <h3 className="text-green-700 mb-2">Preview:</h3>
-                {Media.type === 'video' ? (
-                  <video src={Media.preview} className="w-full h-48 object-cover" controls />
+                <h3 className="text-green-700 font-semibold mb-1">Preview:</h3>
+                {Media.type === "video" ? (
+                  <video
+                    src={Media.preview}
+                    className="w-full h-48 object-cover"
+                    controls
+                  />
                 ) : (
-                  <img src={Media.preview} alt="Preview" className="w-full h-48 object-cover" />
+                  <img
+                    src={Media.preview}
+                    alt="Preview"
+                    className="w-full h-48 object-cover"
+                  />
                 )}
               </div>
             )}
@@ -226,7 +341,7 @@ const NatureHome = () => {
                 />
               )}
               <div className="p-4">
-                <h2 className="text-xl font-semibold text-green-700 mb-2">
+                <h2 className="text-xl font-semibold text-green-700 mb-1">
                   {item.title}
                 </h2>
                 <p className="text-green-600">{item.description}</p>
