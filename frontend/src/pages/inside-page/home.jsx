@@ -1,6 +1,7 @@
 import React from "react";
 import HeaderHome from "../inside-page/headerHome";
 import FooterHome from "../inside-page/footerHome";
+import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 
 const Home = () => {
   const reasons = [
