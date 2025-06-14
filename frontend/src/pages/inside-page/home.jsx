@@ -65,20 +65,35 @@ const Home = () => {
     "https://v1.pinimg.com/videos/iht/720p/ec/cb/f2/eccbf2d5fc52bec35b0a25505ec60fc1.mp4",
   ];
 
+  const [isAtTop, setIsAtTop] = React.useState(true);
+
+  const scrollToPosition = () => {
+    if (isAtTop) {
+      window.scrollTo({
+        top: document.documentElement.scrollHeight,
+        behavior: "smooth",
+      });
+    } else {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
+    setIsAtTop(!isAtTop);
+  };
+
   return (
     <div className="overflow-hidden w-screen">
       {/* Header */}
       <HeaderHome />
       <div className=" min-h-screen flex flex-col">
-
+        
         {/* Up/Down Button */}
-        <button 
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="fixed bottom-2 right-3 z-50 p-2 hover:shadow-teal-50 rounded-full bg-rose-500 text-white shadow-lg hover:bg-rose-600 transition-all duration-300 hover:scale-110 transform active:scale-95"
+        <button
+          onClick={scrollToPosition}
+          className="fixed bottom-2 right-3 z-50 p-3 hover:shadow-teal-50 rounded-full bg-rose-500 text-white shadow-lg hover:bg-rose-600 transition-all duration-300 hover:scale-110 transform active:scale-95"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
-          </svg>
+          {isAtTop ? <FaChevronDown /> : <FaChevronUp />}
         </button>
         
         {/* Main Content */}
