@@ -10,7 +10,7 @@ const SeaHome = () => {
   };
 
   return (
-    <div className="min-h-screen w-full bg-green-50">
+    <div className="min-h-screen w-full bg-green-50 overflow-hidden h-full">
       <HeaderHome />
 
       <section className="py-12 px-4 md:px-12">
