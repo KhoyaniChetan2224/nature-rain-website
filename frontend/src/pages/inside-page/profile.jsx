@@ -145,12 +145,11 @@ const Profile = () => {
   };
 
   return (
-    <div className="bg-green-100 min-h-screen">
+    <div className="bg-gradient-to-bl from-green-200 to-yellow-100 min-h-screen overflow-hidden h-full">
       <HeaderHome />
-
       <div className="max-w-5xl mx-auto px-4 py-8">
-        <div className="shadow-lg rounded-lg p-6 bg-gradient-to-bl from-green-500 via-lime-200 to-rose-400">
-          <h2 className="text-3xl font-bold mb-6 text-center text-gray-800 underline">Your Profile</h2>
+        <div className="shadow-lg rounded-lg p-6 bg-gradient-to-br from-green-100 to-yellow-50">
+          <h2 className="text-3xl font-bold mb-6 text-center text-green-800 underline">Your Profile</h2>
 
           {message && (
             <p className="text-center text-sm mb-4 text-red-600">{message}</p>
