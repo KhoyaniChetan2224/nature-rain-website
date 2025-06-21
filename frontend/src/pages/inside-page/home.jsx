@@ -46,6 +46,21 @@ const Home = () => {
         "It teaches how all life is interconnected.",
       ],
     },
+    {
+      icon: "🚨",
+      title: "Nature Is Under Threat",
+      points: [
+        "Deforestation, pollution, climate change, and biodiversity loss are pushing nature-and us-toward crisis." ,
+        "Protecting nature isn’t a luxury. It’s a necessity. ",
+      ],
+    },
+    {
+      icon: "🌱",
+      title: "Final Thought:",
+      points: [
+        "But we need nature-more than ever.",
+      ],
+    },
   ];
 
   const IMAGES = [
@@ -82,9 +97,9 @@ const Home = () => {
     }
     setIsAtTop(!isAtTop);
   };
-
+  
   return (
-    <div className="overflow-hidden w-screen">
+    <div className="overflow-hidden w-screen bg-green-50">
       {/* Header */}
       <HeaderHome />
       <div className=" min-h-screen flex flex-col">
@@ -96,7 +111,7 @@ const Home = () => {
         >
           {isAtTop ? <FaChevronDown /> : <FaChevronUp />}
         </button>
-        
+
         {/* Main Content */}
         <main className="bg-cover bg-center bg-[url(https://i.pinimg.com/736x/b9/75/05/b975051ce74ad59f2d9bc15fcbfdcb30.jpg)] h-screen flex justify-between flex-col w-full">
           <div className="flex mt-12 flex-col items-center justify-center h-full">
@@ -110,7 +125,7 @@ const Home = () => {
               Welcome to Nature
             </h2>
             <p className="mt-2 text-lg text-white bg-black bg-opacity-30 px-4 py-2 rounded-lg">
-              Discover inspiration for your dream space!
+              Discover inspiration for your dream space...!
             </p>
           </div>
         </main>
@@ -118,8 +133,8 @@ const Home = () => {
         <section className="bg-green-50 overflow-hidden h-fit w-screen">
           <div className="font-sans text-gray-800">
             {/* About Section */}
-            <section className="py-16 px-6 md:px-20 bg-green-50">
-              <div className="min-h-screen bg-green-50 py-10 px-4 md:px-16">
+            <section className="py-16 px-6 md:px-20 bg-green-50 relative">
+              <div className="min-h-screen bg-green-50 py-10 px-4 md:px-16 ">
                 <h1 className="text-3xl md:text-4xl font-bold text-center text-green-800 mb-10">
                   Why Nature Matters 🌍
                 </h1>
@@ -128,41 +143,25 @@ const Home = () => {
                   {reasons.map((reason, idx) => (
                     <div
                       key={idx}
-                      className="bg-white border-l-4  border-green-800 rounded-2xl shadow-md p-6"
+                      className="bg-white border-l-4 border-r-4 border-t-2 border-b-2 border-green-800 rounded-2xl cursor-pointer shadow-md p-6 relative group overflow-hidden"
                     >
-                      <h2 className="text-2xl font-semibold text-green-700 mb-3">
-                        {reason.icon} {reason.title}
-                      </h2>
-                      <ul className="list-disc list-inside space-y-1 text-gray-700">
-                        {reason.points.map((point, i) => (
-                          <li key={i}>{point}</li>
-                        ))}
-                      </ul>
+                      {/* Animated hover overlay */}
+                      <span
+                        className="absolute left-0 top-0 h-full w-0 group-hover:w-full transition-all duration-[2000ms] bg-green-50 z-0"
+                        style={{ transitionTimingFunction: "ease" }}
+                      ></span>
+                      <div className="relative z-10">
+                        <h2 className="text-2xl font-semibold text-green-700 mb-3">
+                          {reason.icon} {reason.title}
+                        </h2>
+                        <ul className="list-disc list-inside space-y-1 text-gray-700">
+                          {reason.points.map((point, i) => (
+                            <li key={i}>{point}</li>
+                          ))}
+                        </ul>
+                      </div>
                     </div>
                   ))}
-
-                  {/* Threat Message */}
-                  <div className="bg-white border-l-4 border-green-800 text-green-700 p-6 rounded-2xl shadow-md">
-                    <h2 className="text-2xl font-semibold mb-3">
-                      🚨 Nature Is Under Threat
-                    </h2>
-                    <p>
-                      Deforestation, pollution, climate change, and biodiversity
-                      loss are pushing nature—and us—toward crisis. Protecting
-                      nature isn’t a luxury. <strong>It’s a necessity.</strong>
-                    </p>
-                  </div>
-
-                  {/* Final Thought */}
-                  <div className="bg-white border-l-4 border-green-800 text-green-700 p-6 rounded-2xl shadow-inner">
-                    <h2 className="text-2xl font-semibold mb-3">
-                      🌱 Final Thought:
-                    </h2>
-                    <p>
-                      Nature doesn’t need us.{" "}
-                      <strong>But we need nature—more than ever.</strong>
-                    </p>
-                  </div>
                 </div>
               </div>
             </section>
@@ -180,6 +179,7 @@ const Home = () => {
                     alt={`Nature ${index + 1}`}
                     className="rounded-xl shadow-md w-full -mt-5 h-60 object-cover hover:scale-105 transition duration-300 ease-in-out cursor-pointer"
                     loading="lazy"
+                    onClick={() => window.open(url, "_blank")}
                   />
                 ))}
               </div>
@@ -201,9 +201,7 @@ const Home = () => {
                     type="video/mp4"
                     loop
                     muted
-                  >
-
-                  </video>
+                  ></video>
                 ))}
               </div>
             </section>
